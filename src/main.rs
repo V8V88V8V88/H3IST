@@ -1,11 +1,10 @@
-// src/main.rs
-use smart_lift::{
+use h3ist::{
     config::SystemConfig,
     controller::LiftController,
-    scheduler::Scheduler,
 };
 
-fn main() {
+#[tokio::main]
+async fn main() {
     println!("Smart Lift System Starting...");
     
     let config = SystemConfig::new(
@@ -17,5 +16,5 @@ fn main() {
     );
     
     let mut controller = LiftController::new(config);
-    controller.start();
+    controller.start().await;
 }
