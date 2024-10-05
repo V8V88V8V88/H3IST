@@ -9,7 +9,7 @@
 |_|  |_|.....|_____|_____/   |_|   
 ```
 
-> Vertical transport system that takes everything to the next level.
+> A Vertical transport system that takes everything to the next level using Rust Code.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-black)
 ![License](https://img.shields.io/badge/license-MIT-red)
