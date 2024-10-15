@@ -74,7 +74,7 @@ let config = Config::new()
 - Rust 1.70+
 - 64-bit OS
 - Modern CPU with AVX2 support
-- 2GB RAM minimum
+- 1GB RAM minimum
 
 ## License
 
