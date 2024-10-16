@@ -19,23 +19,6 @@
 
 H3IST is a high-performance elevator control system written in Rust. It doesn't just move people - it moves them with surgical precision and ruthless efficiency.
 
-## Core Features
-
-🔮 **Predictive Dispatch**
-- Learns traffic patterns
-- Positions elevators before calls
-- Reduces wait times to dust
-
-⚡ **Raw Performance**
-- 50ms response time
-- Handles 800+ passengers/hour
-- 30% more efficient than standard systems
-
-🎯 **Precision Control**
-- Dynamic acceleration profiles
-- Load-adaptive speed curves
-- Sub-millimeter floor alignment
-
 ## Quick Start
 
 ```bash
