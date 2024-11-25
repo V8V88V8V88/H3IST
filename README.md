@@ -1,73 +1,23 @@
 # H3IST
 
-```
- _    _ _____ _____  _____ _______ 
-| |  | |____ |_   _|/ ____|__   __|
-| |__| |___| | | | | (___    | |   
-|  __  |___| | | |  \___ \   | |   
-| |  | |_____| | |_ ____) |  | |   
-|_|  |_|.....|_____|_____/   |_|   
-```
+A terminal elevator simulator in Rust, written to learn async Rust with tokio.
 
-> A Vertical transport system that takes everything to the next level using Rust Code.
+The default building has 4 elevators and 32 floors. Each elevator speeds up and slows down with a fixed acceleration, works out its stopping distance so it halts at the floor, and opens its doors when it arrives. The screen redraws every 100 ms with each car's floor, direction and door state.
 
-![Version](https://img.shields.io/badge/version-1.0.0-black)
-![License](https://img.shields.io/badge/license-MIT-red)
-![Build](https://img.shields.io/badge/build-passing-green)
+When a request comes in, the scheduler picks the cheapest idle or passing elevator by distance and sends it to the caller's floor. You can add requests yourself or generate up to 10 random ones.
 
-## What is H3IST?
-
-H3IST is a high-performance elevator control system written in Rust. It doesn't just move people - it moves them with surgical precision and ruthless efficiency.
-
-## Quick Start
+## Run
 
 ```bash
-# Clone it
-git clone https://github.com/yourusername/h3ist
-
-# Build it
-cargo build --release
-
-# Run it
 cargo run --release
 ```
 
-## Configuration
+Uses `cargo-features = ["edition2024"]`, so it needs a nightly toolchain or a Rust release with edition 2024 stable.
 
-```rust
-use h3ist::Config;
+## Status
 
-let config = Config::new()
-    .elevators(4)
-    .floors(32)
-    .max_speed(2.0)
-    .build();
-```
+Unfinished.
 
-## Benchmarks
-
-| Metric          | H3IST     | Traditional |
-|-----------------|-----------|-------------|
-| Avg Wait Time   | 15s       | 45s         |
-| Energy Usage    | 0.7 kW/h  | 1.1 kW/h    |
-| Response Time   | 50ms      | 200ms       |
-
-## Requirements
-
-- Rust 1.70+
-- 64-bit OS
-- Modern CPU with AVX2 support
-- 1GB RAM minimum
-
-## License
-
-MIT License - Take it. Use it. Make it better.
-
-## Support
-
-- Issues: GitHub Issues
-- Docs: [h3ist.docs](https://docs.h3ist.dev)
-- Discord: [H3IST Community](https://discord.gg/h3ist)
-
----
-*This isn't just elevator control. This is H3IST.*
+- The menu loop throws away what you type, so options 1–3 don't respond yet.
+- Elevators only go to the pickup floor. They don't carry passengers on to their destination.
+- `OptimizedScan` in `algorithms.rs` sketches a SCAN-style scheduler that weighs energy against wait time, but its cost functions are still stubs.
