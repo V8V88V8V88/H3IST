@@ -32,12 +32,10 @@ impl LiftController {
         println!("Lift controller started with {} elevators", self.config.num_floors);
         println!("Building has {} floors (Ground floor = 1)", self.config.num_floors);
 
-        // Create channels for request handling
         let (tx, mut rx) = mpsc::channel(100);
         let elevators = self.elevators.clone();
         let config = self.config.clone();
 
-        // Spawn elevator update task
         let update_elevators = elevators.clone();
         tokio::spawn(async move {
             let mut interval = time::interval(Duration::from_millis(100));
@@ -45,12 +43,11 @@ impl LiftController {
                 interval.tick().await;
                 for elevator in &update_elevators {
                     let mut elevator = elevator.lock().unwrap();
-                    elevator.update(0.1); // 100ms = 0.1s
+                    elevator.update(0.1);
                 }
             }
         });
 
-        // Spawn request handling task
         let request_elevators = elevators.clone();
         tokio::spawn(async move {
             let mut scheduler = Scheduler::new(request_elevators);
@@ -59,9 +56,7 @@ impl LiftController {
             }
         });
 
-        // Main simulation loop
         loop {
-            // Clear screen (ANSI escape code)
             print!("\x1B[2J\x1B[1;1H");
             
             println!("\nCurrent elevator status:");
@@ -94,7 +89,6 @@ impl LiftController {
                 }
             }
             
-            // Small delay to prevent CPU overuse
             time::sleep(Duration::from_millis(100)).await;
         }
     }
@@ -172,7 +166,6 @@ impl LiftController {
                 request.passenger_count
             );
             
-            // Small delay between requests
             time::sleep(Duration::from_millis(500)).await;
         }
     }

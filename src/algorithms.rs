@@ -34,18 +34,15 @@ impl OptimizedScan {
     }
 
     fn calculate_energy_cost(&self, _elevator: &Elevator, _up_requests: &[&Request], _down_requests: &[&Request]) -> f64 {
-        // Implement energy cost calculation
-        0.0 // Placeholder return value
+        0.0
     }
 
     fn calculate_wait_cost(&self, _elevator: &Elevator, _up_requests: &[&Request], _down_requests: &[&Request]) -> f64 {
-        // Implement wait cost calculation
-        0.0 // Placeholder return value
+        0.0
     }
 
     fn select_optimal_requests(&self, _elevator: &Elevator, _up_requests: &[&Request], _down_requests: &[&Request]) -> Vec<Request> {
-        // Implement optimal request selection
-        Vec::new() // Placeholder return value
+        Vec::new()
     }
 }
 
@@ -57,7 +54,6 @@ impl SchedulingAlgorithm for OptimizedScan {
     ) -> Vec<Assignment> {
         let mut assignments = Vec::new();
         
-        // Group requests by direction and proximity
         let mut up_requests = Vec::new();
         let mut down_requests = Vec::new();
         
@@ -69,21 +65,16 @@ impl SchedulingAlgorithm for OptimizedScan {
             }
         }
         
-        // Sort requests by floor number
         up_requests.sort_by_key(|r| r.from_floor);
         down_requests.sort_by_key(|r| std::cmp::Reverse(r.from_floor));
         
-        // Calculate costs for each elevator
         for elevator in elevators {
             let elevator = elevator.lock().unwrap();
             
-            // Calculate energy cost
             let energy_cost = self.calculate_energy_cost(&elevator, &up_requests, &down_requests);
             
-            // Calculate wait time cost
             let wait_cost = self.calculate_wait_cost(&elevator, &up_requests, &down_requests);
             
-            // Combine costs using weights
             let total_cost = self.energy_weight * energy_cost + self.wait_time_weight * wait_cost;
             
             assignments.push(Assignment {

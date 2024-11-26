@@ -37,7 +37,6 @@ impl Elevator {
                 let target_pos = target as f64;
                 let distance = target_pos - self.current_floor;
                 
-                // Update direction based on target
                 self.direction = if distance > 0.01 {
                     Direction::Up
                 } else if distance < -0.01 {
@@ -51,22 +50,17 @@ impl Elevator {
                     return;
                 }
 
-                // Calculate optimal speed profile
                 let stopping_distance = (self.speed * self.speed) / (2.0 * self.acceleration);
                 let direction = distance.signum();
                 
                 if stopping_distance >= distance.abs() {
-                    // Decelerate
                     self.speed -= self.acceleration * direction * delta_time;
                 } else {
-                    // Accelerate
                     self.speed += self.acceleration * direction * delta_time;
                 }
 
-                // Update position
                 self.current_floor += self.speed * delta_time;
                 
-                // Clamp position to valid range
                 self.current_floor = self.current_floor.max(1.0);
             }
             None => {
@@ -75,14 +69,11 @@ impl Elevator {
             }
         }
 
-        // Update door state
         match self.door_state {
             DoorState::Opening => {
-                // Simulate door opening time
                 self.door_state = DoorState::Open;
             }
             DoorState::Closing => {
-                // Simulate door closing time
                 self.door_state = DoorState::Closed;
             }
             _ => {}
